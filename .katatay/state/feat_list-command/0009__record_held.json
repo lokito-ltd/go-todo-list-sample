@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "seq": 9,
+  "prev": "34bedfd89fc4b34b2faa1e3576aa27b294989a4bbadac0db5697a03cacccd8bf",
+  "ts": "2026-11-18T21:35:59.189Z",
+  "event": "record_held",
+  "payload": {
+    "treeFingerprint": "9aa5950c1cb5559458534b3714efaa0bcef921bd7df15663f696aae70adb18e0",
+    "note": null,
+    "gaps": {
+      "uncoveredLines": 1,
+      "uncaughtMutants": 0
+    },
+    "changeReportSnapshot": ".katatay/local/feat_list-command/change-report/20261118T213559.184Z_vXKltS7I6FCER68vkU27GwpE_u8L7O1wF0KAKgqYYIc.json"
+  }
+}

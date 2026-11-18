@@ -15,7 +15,7 @@ build:
 	mv "$$work/go-todo" bin/go-todo
 
 run:
-	@go run ./cmd/go-todo
+	@go run ./cmd/go-todo list
 
 test:
 	go test -count=1 ./...

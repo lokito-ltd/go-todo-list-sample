@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "seq": 11,
+  "prev": "4590615ec83d56668b54d5bcc1c461758c29978d6b84f686e93f7d1555bf8d45",
+  "ts": "2026-11-18T21:37:31.686Z",
+  "event": "recorded",
+  "payload": {
+    "treeFingerprint": "9aa5950c1cb5559458534b3714efaa0bcef921bd7df15663f696aae70adb18e0",
+    "changes": "ad1d7ce9264c4f79d1a32085931fb7c1ce0c0e3e423272db74b4a2c5ed725c3c",
+    "files": [
+      "requirements/changes/20261118T213707Z__list_incomplete_items.md"
+    ]
+  }
+}
