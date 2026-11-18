@@ -13,10 +13,10 @@ func TestAddingItems(t *testing.T) {
 		if status != 0 || stderr != "" {
 			t.Fatalf("add returned %d with stderr %q", status, stderr)
 		}
-		if want := "[ ] Water the plants\n"; stdout != want {
+		if want := "5. [ ] Water the plants\n"; stdout != want {
 			t.Errorf("add printed %q, want %q", stdout, want)
 		}
-		if got, want := listItems(t), before+"[ ] Water the plants\n"; got != want {
+		if got, want := listItems(t), before+"5. [ ] Water the plants\n"; got != want {
 			t.Errorf("list = %q, want %q", got, want)
 		}
 	})
@@ -29,12 +29,12 @@ func TestAddingItems(t *testing.T) {
 		if _, stderr, status := runCommand(t, "add", "Pay the  rent"); status != 0 {
 			t.Fatalf("add returned %d with stderr %q", status, stderr)
 		}
-		want := "[ ] Buy milk\n" +
-			"[ ] Take cat to vet\n" +
-			"[ ] Print forms at library\n" +
-			"[ ] Wash the car\n" +
-			"[ ] Call the plumber\n" +
-			"[ ] Pay the rent\n"
+		want := "1. [ ] Buy milk\n" +
+			"2. [ ] Take cat to vet\n" +
+			"3. [ ] Print forms at library\n" +
+			"4. [ ] Wash the car\n" +
+			"5. [ ] Call the plumber\n" +
+			"6. [ ] Pay the rent\n"
 		if got := listItems(t); got != want {
 			t.Errorf("list = %q, want %q", got, want)
 		}
@@ -54,7 +54,7 @@ func TestAddingItems(t *testing.T) {
 			if status != 2 {
 				t.Errorf("%q returned %d, want 2", args, status)
 			}
-			if want := "usage: go-todo list\n       go-todo add <title>\n"; stderr != want {
+			if want := usage; stderr != want {
 				t.Errorf("%q stderr = %q, want %q", args, stderr, want)
 			}
 			if stdout != "" {

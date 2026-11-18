@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-const wantUsage = "usage: go-todo list\n       go-todo add <title>\n"
+const wantUsage = "usage: go-todo list\n       go-todo add <title>\n       go-todo done <number>\n"
 
 // itemsFile returns a path in a fresh temporary folder, holding contents when
 // contents is not empty.
@@ -39,7 +39,7 @@ func TestRunListPrintsBuiltInItemsWithoutAFile(t *testing.T) {
 	if status := Run([]string{"list"}, &stdout, &stderr); status != 0 {
 		t.Fatalf("exit status = %d, want 0 (stderr %q)", status, stderr.String())
 	}
-	want := "[ ] Buy milk\n[ ] Take cat to vet\n[ ] Print forms at library\n[ ] Wash the car\n"
+	want := "1. [ ] Buy milk\n2. [ ] Take cat to vet\n3. [ ] Print forms at library\n4. [ ] Wash the car\n"
 	if got := stdout.String(); got != want {
 		t.Errorf("stdout = %q, want %q", got, want)
 	}
@@ -49,12 +49,12 @@ func TestRunListPrintsBuiltInItemsWithoutAFile(t *testing.T) {
 }
 
 func TestRunListReadsTheItemsFile(t *testing.T) {
-	path := itemsFile(t, `[{"title":"Open","done":false},{"title":"Closed","done":true}]`)
+	path := itemsFile(t, `[{"title":"Open","done":false},{"title":"Closed","done":true},{"title":"Also open","done":false}]`)
 	var stdout bytes.Buffer
 	if status := run([]string{"list"}, path, &stdout, io.Discard); status != 0 {
 		t.Fatalf("exit status = %d, want 0", status)
 	}
-	if got, want := stdout.String(), "[ ] Open\n"; got != want {
+	if got, want := stdout.String(), "1. [ ] Open\n2. [ ] Also open\n"; got != want {
 		t.Errorf("stdout = %q, want %q", got, want)
 	}
 }
@@ -63,6 +63,7 @@ func TestRunReportsWriteFailure(t *testing.T) {
 	cases := map[string][]string{
 		"list": {"list"},
 		"add":  {"add", "New"},
+		"done": {"done", "1"},
 	}
 	for name, args := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -85,6 +86,7 @@ func TestRunReportsUnreadableItems(t *testing.T) {
 	cases := map[string][]string{
 		"list": {"list"},
 		"add":  {"add", "New"},
+		"done": {"done", "1"},
 	}
 	for name, args := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -113,7 +115,7 @@ func TestRunAddAppendsAnIncompleteItem(t *testing.T) {
 	if status := run([]string{"add", "New"}, path, &stdout, &stderr); status != 0 {
 		t.Fatalf("exit status = %d, want 0 (stderr %q)", status, stderr.String())
 	}
-	if got, want := stdout.String(), "[ ] New\n"; got != want {
+	if got, want := stdout.String(), "1. [ ] New\n"; got != want {
 		t.Errorf("stdout = %q, want %q", got, want)
 	}
 	if stderr.Len() != 0 {
@@ -134,7 +136,7 @@ func TestRunAddWithoutAFileKeepsTheBuiltInItems(t *testing.T) {
 	if status := run([]string{"list"}, path, &stdout, io.Discard); status != 0 {
 		t.Fatalf("list exit status = %d, want 0", status)
 	}
-	want := "[ ] Buy milk\n[ ] Take cat to vet\n[ ] Print forms at library\n[ ] Wash the car\n[ ] New\n"
+	want := "1. [ ] Buy milk\n2. [ ] Take cat to vet\n3. [ ] Print forms at library\n4. [ ] Wash the car\n5. [ ] New\n"
 	if got := stdout.String(); got != want {
 		t.Errorf("stdout = %q, want %q", got, want)
 	}
@@ -152,7 +154,7 @@ func TestRunAddJoinsWordsWithSingleSpaces(t *testing.T) {
 			if status := run(args, itemsFile(t, "[]"), &stdout, io.Discard); status != 0 {
 				t.Fatalf("exit status = %d, want 0", status)
 			}
-			if got, want := stdout.String(), "[ ] Buy bread\n"; got != want {
+			if got, want := stdout.String(), "1. [ ] Buy bread\n"; got != want {
 				t.Errorf("stdout = %q, want %q", got, want)
 			}
 		})
@@ -202,6 +204,11 @@ func TestRunRejectsBadUsage(t *testing.T) {
 		"extra argument":       {"list", "extra"},
 		"add without title":    {"add"},
 		"add with blank title": {"add", "  ", ""},
+		"done without number":  {"done"},
+		"done with a word":     {"done", "abc"},
+		"done with zero":       {"done", "0"},
+		"done with negative":   {"done", "-1"},
+		"done with two":        {"done", "1", "2"},
 	}
 	for name, args := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -220,5 +227,90 @@ func TestRunRejectsBadUsage(t *testing.T) {
 				t.Errorf("file = %q, want it unchanged", got)
 			}
 		})
+	}
+}
+
+func TestRunAddNumbersTheItemAfterTheIncompleteOnes(t *testing.T) {
+	path := itemsFile(t, `[{"title":"A","done":false},{"title":"B","done":true},{"title":"C","done":false}]`)
+	var stdout bytes.Buffer
+	if status := run([]string{"add", "New"}, path, &stdout, io.Discard); status != 0 {
+		t.Fatalf("exit status = %d, want 0", status)
+	}
+	if got, want := stdout.String(), "3. [ ] New\n"; got != want {
+		t.Errorf("stdout = %q, want %q", got, want)
+	}
+}
+
+func TestRunDoneMarksTheNumberedItem(t *testing.T) {
+	path := itemsFile(t, `[{"title":"A","done":false},{"title":"B","done":true},{"title":"C","done":false}]`)
+	var stdout, stderr bytes.Buffer
+	if status := run([]string{"done", "2"}, path, &stdout, &stderr); status != 0 {
+		t.Fatalf("exit status = %d, want 0 (stderr %q)", status, stderr.String())
+	}
+	if got, want := stdout.String(), "[x] C\n"; got != want {
+		t.Errorf("stdout = %q, want %q", got, want)
+	}
+	if stderr.Len() != 0 {
+		t.Errorf("stderr = %q, want empty", stderr.String())
+	}
+	want := "[\n  {\n    \"title\": \"A\",\n    \"done\": false\n  },\n" +
+		"  {\n    \"title\": \"B\",\n    \"done\": true\n  },\n" +
+		"  {\n    \"title\": \"C\",\n    \"done\": true\n  }\n]\n"
+	if got := readFile(t, path); got != want {
+		t.Errorf("file = %q, want %q", got, want)
+	}
+}
+
+func TestRunDoneWithoutAFileSavesTheBuiltInItems(t *testing.T) {
+	path := itemsFile(t, "")
+	if status := run([]string{"done", "1"}, path, io.Discard, io.Discard); status != 0 {
+		t.Fatalf("exit status = %d, want 0", status)
+	}
+	var stdout bytes.Buffer
+	if status := run([]string{"list"}, path, &stdout, io.Discard); status != 0 {
+		t.Fatalf("list exit status = %d, want 0", status)
+	}
+	want := "1. [ ] Take cat to vet\n2. [ ] Print forms at library\n3. [ ] Wash the car\n"
+	if got := stdout.String(); got != want {
+		t.Errorf("stdout = %q, want %q", got, want)
+	}
+}
+
+func TestRunDoneRefusesANumberPastTheEnd(t *testing.T) {
+	// Item 2 is done, so only one incomplete item is listed.
+	contents := `[{"title":"A","done":false},{"title":"B","done":true}]`
+	path := itemsFile(t, contents)
+	var stdout, stderr bytes.Buffer
+	if status := run([]string{"done", "2"}, path, &stdout, &stderr); status != 1 {
+		t.Errorf("exit status = %d, want 1", status)
+	}
+	if got, want := stderr.String(), "go-todo: no item 2 on the list\n"; got != want {
+		t.Errorf("stderr = %q, want %q", got, want)
+	}
+	if stdout.Len() != 0 {
+		t.Errorf("stdout = %q, want empty", stdout.String())
+	}
+	if got := readFile(t, path); got != contents {
+		t.Errorf("file = %q, want it unchanged", got)
+	}
+}
+
+func TestRunDoneReportsSaveFailure(t *testing.T) {
+	// The file can be read (it is missing) but not written.
+	dir := t.TempDir()
+	if err := os.Chmod(dir, 0o500); err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { os.Chmod(dir, 0o700) })
+	var stdout, stderr bytes.Buffer
+	status := run([]string{"done", "1"}, filepath.Join(dir, "items.json"), &stdout, &stderr)
+	if status != 1 {
+		t.Errorf("exit status = %d, want 1", status)
+	}
+	if got, prefix := stderr.String(), "go-todo: save items: "; len(got) <= len(prefix) || !strings.HasPrefix(got, prefix) {
+		t.Errorf("stderr = %q, want it to start with %q", got, prefix)
+	}
+	if stdout.Len() != 0 {
+		t.Errorf("stdout = %q, want empty", stdout.String())
 	}
 }

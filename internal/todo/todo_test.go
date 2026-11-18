@@ -223,3 +223,45 @@ func TestIncompleteOfAllDoneIsEmpty(t *testing.T) {
 		t.Errorf("Incomplete = %+v, want none", got)
 	}
 }
+
+func TestCompleteMarksTheNthIncompleteItemSkippingDoneOnes(t *testing.T) {
+	items := []Item{{Title: "A"}, {Title: "B", Done: true}, {Title: "C"}, {Title: "D"}}
+	got, ok := Complete(items, 2)
+	if !ok {
+		t.Fatal("Complete reported no item 2")
+	}
+	if want := (Item{Title: "C", Done: true}); got != want {
+		t.Errorf("Complete = %+v, want %+v", got, want)
+	}
+	want := []Item{{Title: "A"}, {Title: "B", Done: true}, {Title: "C", Done: true}, {Title: "D"}}
+	if !reflect.DeepEqual(items, want) {
+		t.Errorf("items = %+v, want %+v", items, want)
+	}
+}
+
+func TestCompleteOfTheFirstAndLastItems(t *testing.T) {
+	items := []Item{{Title: "A"}, {Title: "B"}}
+	if got, ok := Complete(items, 1); !ok || got.Title != "A" {
+		t.Errorf("Complete(1) = %+v, %v, want A, true", got, ok)
+	}
+	if got, ok := Complete(items, 1); !ok || got.Title != "B" {
+		t.Errorf("Complete(1) after A = %+v, %v, want B, true", got, ok)
+	}
+	if !items[0].Done || !items[1].Done {
+		t.Errorf("items = %+v, want both done", items)
+	}
+}
+
+func TestCompleteOfAMissingNumberChangesNothing(t *testing.T) {
+	for _, n := range []int{-1, 0, 3, 4} {
+		items := []Item{{Title: "A"}, {Title: "B", Done: true}, {Title: "C"}}
+		got, ok := Complete(items, n)
+		if ok || got != (Item{}) {
+			t.Errorf("Complete(%d) = %+v, %v, want zero item, false", n, got, ok)
+		}
+		want := []Item{{Title: "A"}, {Title: "B", Done: true}, {Title: "C"}}
+		if !reflect.DeepEqual(items, want) {
+			t.Errorf("Complete(%d) changed items to %+v", n, items)
+		}
+	}
+}

@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "seq": 1,
+  "prev": null,
+  "ts": "2026-11-18T22:49:09.395Z",
+  "event": "plan_approved",
+  "payload": {
+    "proposal": "6455c77a6bbb78f20b2e37cc0f5ca33c99e866adaf3378fefc2249c48ab67fc9",
+    "testOnly": false,
+    "requirementChanges": [
+      {
+        "id": "AC0001",
+        "status": "active",
+        "statement": "Listing the to-do items shows every incomplete item and skips done ones.",
+        "scenarios": [
+          "[AC0001.1] Each incomplete item is shown on its own line as its number, \". [ ] \" and its title.",
+          "[AC0001.2] Done items are not shown.",
+          "[AC0001.3] Items are numbered from 1 in the order they are listed."
+        ]
+      },
+      {
+        "id": "AC0003",
+        "status": "active",
+        "statement": "Marking an item complete takes it off the list of incomplete items.",
+        "scenarios": [
+          "[AC0003.1] A completed item is no longer shown on the list.",
+          "[AC0003.2] The other items keep their order after one is completed.",
+          "[AC0003.3] Completing a number that is not on the list is refused and leaves the list unchanged.",
+          "[AC0003.4] Completing without a single whole number is refused and leaves the list unchanged."
+        ]
+      }
+    ],
+    "planSnapshot": ".katatay/local/feat_done-command/plans/20261118T224909.386Z_ZFXHemu7ePILLjfMD1yjPJnoZq2vM3j-_CJJxIq2f8k.md",
+    "baseline": "67e47d24db3e79f9545db06f7f51eeb4bab0bfb0"
+  },
+  "branch": "feat/done-command"
+}
