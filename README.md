@@ -1,6 +1,6 @@
 # go-todo
 
-A standalone command-line to-do app for Apple Silicon and Intel Macs. Run the executable with no arguments to display one unchecked item.
+A standalone command-line to-do app for Apple Silicon and Intel Macs. Run `go-todo list` to display every incomplete item. The items are built into the executable from `internal/todo/items.json`.
 
 ## Build and run
 
@@ -8,14 +8,19 @@ From the project root, with Go 1.25 or newer and Apple's command line tools inst
 
 ```sh
 make build
-./bin/go-todo
+./bin/go-todo list
 ```
 
 Expected output:
 
 ```text
-[ ] Hello World
+[ ] Buy milk
+[ ] Take cat to vet
+[ ] Print forms at library
+[ ] Wash the car
 ```
+
+Done items are not shown. Running `go-todo` with no command, or an unknown one, prints `usage: go-todo list` to stderr and exits with status 2.
 
 On a development Mac, install Go with `brew install go` and Apple's command line tools with `xcode-select --install` if needed. The build uses `lipo` to combine and verify both architectures. Copy `bin/go-todo` to a compatible Mac to run it without a Go installation.
 
@@ -23,7 +28,7 @@ On a development Mac, install Go with `brew install go` and Apple's command line
 
 | Command | What it does |
 | --- | --- |
-| `make run` | Run the app from source. |
+| `make run` | Run `go-todo list` from source. |
 | `make test` | Run unit, acceptance, and end-to-end tests with Go's built-in test runner. |
 | `make check` | Check formatting, run `go vet`, and run all tests. |
 | `make mutate` | Use Gremlins to change CLI code and check that the tests catch the changes. |

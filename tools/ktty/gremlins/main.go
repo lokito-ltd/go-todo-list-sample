@@ -301,6 +301,10 @@ func unleash(ctx context.Context, dir string, files []string, verbose bool) (*gr
 	}
 
 	data, err := os.ReadFile(outFile)
+	if errors.Is(err, fs.ErrNotExist) {
+		// Gremlins succeeded but found nothing to mutate, so it wrote no file.
+		return &gremlinsOutput{}, nil
+	}
 	if err != nil {
 		return nil, err
 	}

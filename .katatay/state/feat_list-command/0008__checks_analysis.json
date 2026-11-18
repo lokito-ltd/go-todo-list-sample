@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "seq": 8,
+  "prev": "b4f4a0965e7c88b25a03e5dcc52f9711c789b30c5b0bcfcb4816656fc050acdd",
+  "ts": "2026-11-18T21:32:05.585Z",
+  "event": "checks_analysis",
+  "payload": {
+    "verification": 7,
+    "summary": "No new test is recommended. The one uncovered line, the entry point in cmd/go-todo/main.go, already has end-to-end tests: they build the binary and check both `list` and the no-argument usage path. Those tests run it in a separate process, which in-process coverage cannot measure. All 5 mutants on the changed lines in internal/ were killed. Gremlins applies only a few kinds of mutation, so the `!item.Done` filter and the argument-count check were not mutated. The tests already pin both of them with exact-output assertions.",
+    "analysisSnapshot": ".katatay/local/feat_list-command/checks-analysis/20261118T213205.583Z_fJZRj2thw4AbvZc5dooblypsQNevmyaiAZtlJr490Lo.txt"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "seq": 5,
+  "prev": "953ac3b0de507a098fd49018d16566792a106bee38863cc88ac627d5b0f3f824",
+  "ts": "2026-11-18T21:31:03.899Z",
+  "event": "plan_approved",
+  "payload": {
+    "proposal": "7116e2a1a97d9db7dd5947bc042df2ab944d3eebeaf6db6a8280cf2056f2b778",
+    "testOnly": false,
+    "requirementChanges": [
+      {
+        "id": "AC0001",
+        "status": "active",
+        "statement": "Listing the to-do items shows every incomplete item and skips done ones.",
+        "scenarios": [
+          "[AC0001.1] Each incomplete item is shown as \"[ ] \" followed by its title, one per line.",
+          "[AC0001.2] Done items are not shown."
+        ]
+      }
+    ],
+    "planSnapshot": ".katatay/local/feat_list-command/plans/20261118T213103.894Z_cRbioal9nbfdWUe8BC3yq5RNPuvq9ttqgoDPIFbyt3g.md",
+    "baseline": "8c3314c0ce0d71393cb54f4764fac7c155a0bcc9"
+  }
+}

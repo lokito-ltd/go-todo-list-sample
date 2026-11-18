@@ -1,0 +1,174 @@
+{
+  "version": 1,
+  "seq": 7,
+  "prev": "171e579a72fe3e2768d697a83425258fd1c2df2d77b71f9dac1415cba5dd6ed9",
+  "ts": "2026-11-18T21:31:52.071Z",
+  "event": "verified",
+  "payload": {
+    "treeFingerprint": "9aa5950c1cb5559458534b3714efaa0bcef921bd7df15663f696aae70adb18e0",
+    "baseline": "8c3314c0ce0d71393cb54f4764fac7c155a0bcc9",
+    "rulebookFingerprint": "ffa3b9c16e8b1dce4e56dfd7e378c7d1368fa8bc96f54501cd008a10db74c04e",
+    "results": [
+      {
+        "name": "req:lint",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "req:guard",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "state:verify",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "compile",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "tests",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "JUnit: reports/test/junit.xml",
+            "snapshot": ".katatay/local/feat_list-command/junit/20261118T213147.567Z_k4OynvKPv8xBsGCoBbhA8onwIebUpqHwAaZwG0RiVy0.xml"
+          },
+          {
+            "role": "analysis",
+            "title": "Parsed test run and execution metadata",
+            "snapshot": ".katatay/local/feat_list-command/junit/analysis/20261118T213147.586Z_C3fWmtQS8CGIMUhh4hNPo1xA24Stoxzid_rTOy8lncs.json"
+          }
+        ],
+        "summary": {
+          "total": 18,
+          "passed": 18,
+          "failed": 0,
+          "skipped": 0,
+          "inverted": 0,
+          "omittedFiles": 0
+        }
+      },
+      {
+        "name": "req:trace",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "coverage",
+        "status": "ok",
+        "reason": "every folder is at or above its minimum",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "Raw LCOV coverage",
+            "snapshot": ".katatay/local/feat_list-command/coverage/20261118T213148.112Z_BrV02yUbffiMcftrAfhog9Ac4WZUSd7htvmK11sk2-A.lcov"
+          },
+          {
+            "role": "analysis",
+            "title": "Coverage thresholds and changed lines",
+            "snapshot": ".katatay/local/feat_list-command/coverage/20261118T213148.112Z_LMKasJC8O44AGV63fSfcPAr3dh9TjODQDbdDnPutvCc.json"
+          }
+        ],
+        "summary": {
+          "folders": [
+            {
+              "folder": "internal/",
+              "lines": {
+                "percent": 100,
+                "target": 95
+              },
+              "branches": {
+                "percent": 100,
+                "target": 0
+              }
+            },
+            {
+              "folder": "cmd/",
+              "lines": {
+                "percent": 0,
+                "target": 0
+              },
+              "branches": {
+                "percent": 100,
+                "target": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "mutation",
+        "status": "ok",
+        "reason": "5 mutants, 5 caught, 0 survived",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "Raw mutation results",
+            "snapshot": ".katatay/local/feat_list-command/mutation/raw/20261118T213151.786Z_0p_ts9B6ykhXlSJ7qHjSxzNJRziyAP7I2SMKAkSYoyQ.json"
+          },
+          {
+            "role": "analysis",
+            "title": "Mutation findings and limitations",
+            "snapshot": ".katatay/local/feat_list-command/mutation/findings/20261118T213151.787Z__kyN_moGbc5RDXlK9P1uDPRR9JOf8B0EXNWlLw0rfas.json"
+          }
+        ],
+        "summary": {
+          "totalMutants": 5,
+          "killed": 5,
+          "survived": 0,
+          "unproved": 0,
+          "ignored": 0,
+          "errored": 0
+        }
+      },
+      {
+        "name": "gofmt",
+        "status": "ok",
+        "reason": "clean",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean",
+          "exitCode": 0
+        }
+      },
+      {
+        "name": "vet",
+        "status": "ok",
+        "reason": "clean",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean",
+          "exitCode": 0
+        }
+      }
+    ],
+    "testFingerprint": "037156834085ad5e886fd8dc8be94d70791905bdf83eaa77ed6fae61d15e7313",
+    "implementationFingerprint": "93ba02d4ab9e0c93929cfe49ec21e8578a85514735e03953b2d314ce27438e94"
+  }
+}

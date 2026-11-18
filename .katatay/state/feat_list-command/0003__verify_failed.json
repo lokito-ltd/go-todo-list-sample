@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "seq": 3,
+  "prev": "9ce28233903c44ef95ea0a5737e040a12d51496fe2d00e2daefc4050d04f62b1",
+  "ts": "2026-11-18T21:30:07.780Z",
+  "event": "verify_failed",
+  "payload": {
+    "treeFingerprint": "bc56620833853fadf333d3a47f30214f8f2b7468804a78597537513d9087df44",
+    "baseline": "8c3314c0ce0d71393cb54f4764fac7c155a0bcc9",
+    "rulebookFingerprint": "ffa3b9c16e8b1dce4e56dfd7e378c7d1368fa8bc96f54501cd008a10db74c04e",
+    "tail": "?   \texample.com/go-todo/tools/ktty/gotestjunit\t[no test files]\n?   \texample.com/go-todo/tools/ktty/gremlins\t[no test files]\n\texample.com/go-todo/cmd/go-todo\t\tcoverage: 0.0% of statements\ncoverage: 39.1% of statements in ./cmd/..., ./internal/...\ncoverage: 95.7% of statements in ./cmd/..., ./internal/...\nok  \texample.com/go-todo/internal/todo\t0.072s\tcoverage: 39.1% of statements in ./cmd/..., ./internal/...\nok  \texample.com/go-todo/internal/cli\t0.072s\tcoverage: 95.7% of statements in ./cmd/..., ./internal/...\ncoverage: 65.2% of statements in ./cmd/..., ./internal/...\nok  \texample.com/go-todo/tests/acceptance\t0.076s\tcoverage: 65.2% of statements in ./cmd/..., ./internal/...\ncoverage: 0.0% of statements in ./cmd/..., ./internal/...\nok  \texample.com/go-todo/tests/e2e\t0.789s\tcoverage: 0.0% of statements in ./cmd/..., ./internal/...\nexit status 2\nMutation testing on the lines this change added or changed:\n  Mutation report failed: reports/mutation/mutation.json\n  ENOENT: no such file or directory, open '/Users/mehow/dev/go-todo-list/reports/mutation/mutation.json'\n\n  gremlins wrapper: cmd/go-todo: open /var/folders/2m/zvv9gz2j6_743frh6mjth5240000gn/T/ktty-gremlins-1291609079/gremlins.json: no such file or directory\nmutation — mutation check broke\n\nverify: failed at mutation.",
+    "results": [
+      {
+        "name": "req:lint",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "req:guard",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "state:verify",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "compile",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "tests",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "JUnit: reports/test/junit.xml",
+            "snapshot": ".katatay/local/feat_list-command/junit/20261118T213006.231Z_heeyiXmR81770zb401sIOHMdKxp397rGNVLaHRddibA.xml"
+          },
+          {
+            "role": "analysis",
+            "title": "Parsed test run and execution metadata",
+            "snapshot": ".katatay/local/feat_list-command/junit/analysis/20261118T213006.250Z_wmDD6WGAiT_hgVKB6G5aMHRcIm1VOnNCpH85lVhMPJA.json"
+          }
+        ],
+        "summary": {
+          "total": 18,
+          "passed": 18,
+          "failed": 0,
+          "skipped": 0,
+          "inverted": 0,
+          "omittedFiles": 0
+        }
+      },
+      {
+        "name": "req:trace",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "coverage",
+        "status": "ok",
+        "reason": "every folder is at or above its minimum",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "Raw LCOV coverage",
+            "snapshot": ".katatay/local/feat_list-command/coverage/20261118T213006.771Z_BrV02yUbffiMcftrAfhog9Ac4WZUSd7htvmK11sk2-A.lcov"
+          },
+          {
+            "role": "analysis",
+            "title": "Coverage thresholds and changed lines",
+            "snapshot": ".katatay/local/feat_list-command/coverage/20261118T213006.772Z_LMKasJC8O44AGV63fSfcPAr3dh9TjODQDbdDnPutvCc.json"
+          }
+        ],
+        "summary": {
+          "folders": [
+            {
+              "folder": "internal/",
+              "lines": {
+                "percent": 100,
+                "target": 95
+              },
+              "branches": {
+                "percent": 100,
+                "target": 0
+              }
+            },
+            {
+              "folder": "cmd/",
+              "lines": {
+                "percent": 0,
+                "target": 0
+              },
+              "branches": {
+                "percent": 100,
+                "target": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "mutation",
+        "status": "failed",
+        "reason": "mutation check broke",
+        "evidence": [],
+        "summary": {
+          "diagnostics": "Mutation testing on the lines this change added or changed:\n  Mutation report failed: reports/mutation/mutation.json\n  ENOENT: no such file or directory, open '/Users/mehow/dev/go-todo-list/reports/mutation/mutation.json'\n\n  gremlins wrapper: cmd/go-todo: open /var/folders/2m/zvv9gz2j6_743frh6mjth5240000gn/T/ktty-gremlins-1291609079/gremlins.json: no such file or directory"
+        }
+      },
+      {
+        "name": "gofmt",
+        "status": "skipped",
+        "reason": "An earlier step stopped verification.",
+        "evidence": [],
+        "summary": {}
+      },
+      {
+        "name": "vet",
+        "status": "skipped",
+        "reason": "An earlier step stopped verification.",
+        "evidence": [],
+        "summary": {}
+      }
+    ]
+  }
+}
