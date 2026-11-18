@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "targetBranch": "origin/main",
+  "tests": {
+    "paths": {
+      "all": [
+        "**/*_test.go"
+      ],
+      "acceptance": [
+        "tests/acceptance/**/*_test.go"
+      ],
+      "slow": [
+        "tests/e2e/**/*_test.go"
+      ],
+      "support": []
+    },
+    "run": {
+      "command": "rm -rf reports/test && go run ./tools/ktty/gotestjunit -o reports/test/junit.xml -- -count=1 -coverpkg=./cmd/...,./internal/... -coverprofile=reports/test/cover.out ./...",
+      "reportPaths": [
+        "reports/test/*.xml"
+      ],
+      "tagComment": "^\\s*//"
+    }
+  },
+  "code": {
+    "paths": [
+      "cmd/**/*.go",
+      "internal/**/*.go"
+    ],
+    "compile": {
+      "command": "go test -count=1 -vet=off -run '^$' ./...",
+      "pattern": "^(?<file>[^\\s:]+\\.go):(?<line>\\d+)(?::\\d+)?: (?<message>.+)$",
+      "exitCodes": {
+        "0": "clean",
+        "1": "errors",
+        "2-255": "broken"
+      }
+    }
+  },
+  "agent": {
+    "lockedPaths": [
+      ".claude/settings.json",
+      ".claude/settings.local.json",
+      ".claude/hooks/**",
+      "~/.claude/settings.json",
+      ".codex/**",
+      "~/.codex/config.toml",
+      "~/.codex/hooks.json",
+      "~/.codex/sessions/**"
+    ],
+    "adapters": {
+      "claude": {
+        "checkCommand": "ktty agent claude check",
+        "extraHooks": {
+          "check": true,
+          "acknowledged": []
+        }
+      },
+      "codex": {
+        "checkCommand": "ktty agent codex check",
+        "extraHooks": {
+          "check": true,
+          "acknowledged": []
+        }
+      }
+    }
+  },
+  "plans": {
+    "dir": "~/.claude/plans"
+  },
+  "followUpsFile": "FOLLOW-UPS.md",
+  "highRisk": [
+    {
+      "paths": [
+        "Makefile"
+      ],
+      "why": "Build, test and check commands"
+    },
+    {
+      "paths": [
+        "go.mod",
+        "go.sum"
+      ],
+      "why": "Dependencies and their checksums"
+    },
+    {
+      "paths": [
+        "cmd/go-todo/main.go"
+      ],
+      "why": "Entry point, not covered by unit coverage"
+    },
+    {
+      "paths": [
+        "tools/ktty/gotestjunit/main.go",
+        "tools/ktty/gocoverlcov/main.go",
+        "tools/ktty/gremlins/main.go"
+      ],
+      "why": "These make a tool keep the workflow's contract, so they decide what a check reports. Read every change to them."
+    },
+    {
+      "paths": [
+        ".claude/rules/workflow.md",
+        ".claude/skills/author-acs/SKILL.md",
+        ".claude/skills/commit-message/SKILL.md",
+        ".claude/skills/plan-change/SKILL.md",
+        "AGENTS.md",
+        ".agents/skills/author-acs/SKILL.md",
+        ".agents/skills/commit-message/SKILL.md",
+        ".agents/skills/plan-change/SKILL.md"
+      ],
+      "why": "These tell the agent how to work here. Read every change to them."
+    }
+  ],
+  "checks": {
+    "testQuality": {
+      "coverage": {
+        "command": "go run ./tools/ktty/gocoverlcov -profile reports/test/cover.out ./cmd/... ./internal/...",
+        "output": "reports/checks/coverage.json",
+        "minimum": {
+          "internal/": {
+            "lines": 95,
+            "branches": 0
+          },
+          "cmd/": {
+            "lines": 0,
+            "branches": 0
+          }
+        }
+      },
+      "mutation": {
+        "command": "go run ./tools/ktty/gremlins -report reports/mutation/mutation.json",
+        "output": "reports/mutation/mutation.json",
+        "timeLimitSeconds": 300,
+        "excludePaths": []
+      }
+    },
+    "codeQuality": {
+      "gofmt": {
+        "command": "files=$(gofmt -l cmd internal tests tools) && if [ -n \"$files\" ]; then printf 'Run gofmt on:\\n%s\\n' \"$files\"; exit 1; fi",
+        "exitCodes": {
+          "0": "clean",
+          "1": "findings",
+          "2-255": "broken"
+        }
+      },
+      "vet": {
+        "command": "go vet ./...",
+        "exitCodes": {
+          "0": "clean",
+          "1": "findings",
+          "2-255": "broken"
+        }
+      }
+    }
+  },
+  "requirementsDir": "requirements"
+}

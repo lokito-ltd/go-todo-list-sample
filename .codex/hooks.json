@@ -1,0 +1,38 @@
+{
+  "description": "Katatay project hooks.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "apply_patch|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ktty agent codex pre-tool"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ktty agent codex user-prompt",
+            "additionalContextLimit": 0
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ktty agent codex turn-end",
+            "timeout": 900
+          }
+        ]
+      }
+    ]
+  }
+}

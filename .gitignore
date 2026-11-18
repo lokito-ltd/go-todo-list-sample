@@ -1,0 +1,7 @@
+/bin/
+/reports/
+
+# Local snapshots the workflow's committed events point at
+/.katatay/local/
+
+.vscode
