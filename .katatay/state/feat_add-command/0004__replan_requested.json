@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "seq": 4,
+  "prev": "c481264a8b3a25f22fea294ba44c78d2d6bec1630ad0ace6eb34e9d409df89d0",
+  "ts": "2026-11-18T21:54:15.590Z",
+  "event": "replan_requested",
+  "payload": {
+    "approval": 1
+  }
+}

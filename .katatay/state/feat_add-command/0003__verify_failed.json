@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "seq": 3,
+  "prev": "f439e24883280ce26f654c8299467cc8441d5d7d0cf2ee6bf2f7ff44046ec5c3",
+  "ts": "2026-11-18T21:53:36.633Z",
+  "event": "verify_failed",
+  "payload": {
+    "treeFingerprint": "3d06d29e659484babd92c6085daf8d18873b745bda0733e49a87c2a1760c653a",
+    "baseline": "fc33e32b3ad3728005cbc4c8d6638794ebf0d288",
+    "rulebookFingerprint": "ffa3b9c16e8b1dce4e56dfd7e378c7d1368fa8bc96f54501cd008a10db74c04e",
+    "tail": "If you trust these registrations, list each event, matcher and command under extraHooks.acknowledged in this adapter's agent.adapters entry in .katatay/rulebook.json.\nstate: WARNING — claude: ~/.claude/settings.json registers an extra PreToolUse hook on Bash: `rtk hook claude`. It runs outside the workflow's gate. If it is the operator's, they list it under extraHooks.acknowledged in this adapter's agent.adapters entry in .katatay/rulebook.json.\n\texample.com/go-todo/cmd/go-todo\t\tcoverage: 0.0% of statements\n?   \texample.com/go-todo/tools/ktty/gocoverlcov\t[no test files]\n?   \texample.com/go-todo/tools/ktty/gotestjunit\t[no test files]\n?   \texample.com/go-todo/tools/ktty/gremlins\t[no test files]\ncoverage: 64.9% of statements in ./cmd/..., ./internal/...\nok  \texample.com/go-todo/tests/acceptance\t0.103s\tcoverage: 64.9% of statements in ./cmd/..., ./internal/...\ncoverage: 47.3% of statements in ./cmd/..., ./internal/...\nok  \texample.com/go-todo/internal/todo\t0.110s\tcoverage: 47.3% of statements in ./cmd/..., ./internal/...\ncoverage: 87.8% of statements in ./cmd/..., ./internal/...\nok  \texample.com/go-todo/internal/cli\t0.118s\tcoverage: 87.8% of statements in ./cmd/..., ./internal/...\ncoverage: 0.0% of statements in ./cmd/..., ./internal/...\nok  \texample.com/go-todo/tests/e2e\t1.219s\tcoverage: 0.0% of statements in ./cmd/..., ./internal/...\ninternal/  lines  92.4% (minimum 95.0%)  branches 100.0% (minimum 0.0%)\ncmd/       lines   0.0% (minimum 0.0%)  branches 100.0% (minimum 0.0%)\nFAILED — internal/: line coverage is 92.4%, below the minimum of 95.0% (86 of 93 lines covered).\ncoverage — coverage minimums or measured files failed\n\nverify: failed at coverage.",
+    "results": [
+      {
+        "name": "req:lint",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "req:guard",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "state:verify",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "compile",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "tests",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "JUnit: reports/test/junit.xml",
+            "snapshot": ".katatay/local/feat_add-command/junit/20261118T215335.967Z_NBXMECigwRxTHCDyZAx5QmtkCfAHwroQ_tBQ1an4uGw.xml"
+          },
+          {
+            "role": "analysis",
+            "title": "Parsed test run and execution metadata",
+            "snapshot": ".katatay/local/feat_add-command/junit/analysis/20261118T215335.989Z_RmT5jbLghGrTckjRf3LXg348PPSy6sjqc-4EXnveK6A.json"
+          }
+        ],
+        "summary": {
+          "total": 50,
+          "passed": 50,
+          "failed": 0,
+          "skipped": 0,
+          "inverted": 0,
+          "omittedFiles": 0
+        }
+      },
+      {
+        "name": "req:trace",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "coverage",
+        "status": "failed",
+        "reason": "coverage minimums or measured files failed",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "Raw LCOV coverage",
+            "snapshot": ".katatay/local/feat_add-command/coverage/20261118T215336.489Z_0USfoFjPOVxTJmqyUWbLm9duQEiBqGBK9Xb7T2JiHZc.lcov"
+          },
+          {
+            "role": "analysis",
+            "title": "Coverage thresholds and changed lines",
+            "snapshot": ".katatay/local/feat_add-command/coverage/20261118T215336.490Z_V1w3cjXWlf1R8RFIwN6m6YFqZu6yEA1fgz42eJoliCY.json"
+          }
+        ],
+        "summary": {
+          "folders": [
+            {
+              "folder": "internal/",
+              "lines": {
+                "percent": 92.4,
+                "target": 95
+              },
+              "branches": {
+                "percent": 100,
+                "target": 0
+              }
+            },
+            {
+              "folder": "cmd/",
+              "lines": {
+                "percent": 0,
+                "target": 0
+              },
+              "branches": {
+                "percent": 100,
+                "target": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "mutation",
+        "status": "skipped",
+        "reason": "An earlier step stopped verification.",
+        "evidence": [],
+        "summary": {}
+      },
+      {
+        "name": "gofmt",
+        "status": "skipped",
+        "reason": "An earlier step stopped verification.",
+        "evidence": [],
+        "summary": {}
+      },
+      {
+        "name": "vet",
+        "status": "skipped",
+        "reason": "An earlier step stopped verification.",
+        "evidence": [],
+        "summary": {}
+      }
+    ]
+  }
+}

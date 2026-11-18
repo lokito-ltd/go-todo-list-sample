@@ -1,6 +1,10 @@
 # go-todo
 
-A standalone command-line to-do app for Apple Silicon and Intel Macs. Run `go-todo list` to display every incomplete item. The items are built into the executable from `internal/todo/items.json`.
+A standalone command-line to-do app for Apple Silicon and Intel Macs. Run `go-todo list` to display every incomplete item, and `go-todo add <title>` to add one.
+
+## Where items are kept
+
+Items are saved in `~/.go-todo/items.json`, outside this repository. Set `GO_TODO_FILE` to keep them in a different file. Until the file exists, the list holds the sample items built into the executable from `internal/todo/items.json`; the first `add` saves them to the file along with the new item.
 
 ## Build and run
 
@@ -20,7 +24,22 @@ Expected output:
 [ ] Wash the car
 ```
 
-Done items are not shown. Running `go-todo` with no command, or an unknown one, prints `usage: go-todo list` to stderr and exits with status 2.
+Done items are not shown. To add an item:
+
+```sh
+./bin/go-todo add Buy bread
+```
+
+This prints `[ ] Buy bread`. Every word after `add` becomes part of the title, so quotes are optional. New items are incomplete and go to the end of the list.
+
+Running `go-todo` with no command, an unknown one, or `add` without a title prints the usage to stderr and exits with status 2:
+
+```text
+usage: go-todo list
+       go-todo add <title>
+```
+
+If the items file cannot be read or written, `go-todo` prints a `go-todo: ...` message to stderr and exits with status 1.
 
 On a development Mac, install Go with `brew install go` and Apple's command line tools with `xcode-select --install` if needed. The build uses `lipo` to combine and verify both architectures. Copy `bin/go-todo` to a compatible Mac to run it without a Go installation.
 

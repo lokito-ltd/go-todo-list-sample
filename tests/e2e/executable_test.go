@@ -3,6 +3,7 @@ package e2e_test
 import (
 	"bytes"
 	"errors"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"testing"
@@ -18,11 +19,19 @@ func buildBinary(t *testing.T) string {
 	return binary
 }
 
-func runBinary(t *testing.T, binary string, args ...string) (stdout, stderr string, err error) {
+// freshItemsFile is a path to an items file that does not exist yet, so the
+// executable never reads or writes the real one in the home folder.
+func freshItemsFile(t *testing.T) string {
+	t.Helper()
+	return filepath.Join(t.TempDir(), "items.json")
+}
+
+func runBinary(t *testing.T, binary, itemsFile string, args ...string) (stdout, stderr string, err error) {
 	t.Helper()
 	var out, errOut bytes.Buffer
 	cmd := exec.Command(binary, args...)
 	cmd.Dir = t.TempDir()
+	cmd.Env = append(os.Environ(), "GO_TODO_FILE="+itemsFile)
 	cmd.Stdout = &out
 	cmd.Stderr = &errOut
 	err = cmd.Run()
@@ -30,7 +39,7 @@ func runBinary(t *testing.T, binary string, args ...string) (stdout, stderr stri
 }
 
 func TestStandaloneExecutableListsIncompleteItems(t *testing.T) {
-	stdout, stderr, err := runBinary(t, buildBinary(t), "list")
+	stdout, stderr, err := runBinary(t, buildBinary(t), freshItemsFile(t), "list")
 	if err != nil {
 		t.Fatalf("go-todo list: %v (stderr %q)", err, stderr)
 	}
@@ -43,13 +52,32 @@ func TestStandaloneExecutableListsIncompleteItems(t *testing.T) {
 	}
 }
 
+func TestStandaloneExecutableKeepsAddedItemsBetweenRuns(t *testing.T) {
+	binary, itemsFile := buildBinary(t), freshItemsFile(t)
+	stdout, stderr, err := runBinary(t, binary, itemsFile, "add", "Buy", "bread")
+	if err != nil {
+		t.Fatalf("go-todo add: %v (stderr %q)", err, stderr)
+	}
+	if want := "[ ] Buy bread\n"; stdout != want {
+		t.Errorf("add stdout = %q, want %q", stdout, want)
+	}
+	stdout, stderr, err = runBinary(t, binary, itemsFile, "list")
+	if err != nil {
+		t.Fatalf("go-todo list: %v (stderr %q)", err, stderr)
+	}
+	want := "[ ] Buy milk\n[ ] Take cat to vet\n[ ] Print forms at library\n[ ] Wash the car\n[ ] Buy bread\n"
+	if stdout != want {
+		t.Errorf("list stdout = %q, want %q", stdout, want)
+	}
+}
+
 func TestStandaloneExecutableWithoutCommandShowsUsage(t *testing.T) {
-	stdout, stderr, err := runBinary(t, buildBinary(t))
+	stdout, stderr, err := runBinary(t, buildBinary(t), freshItemsFile(t))
 	var exit *exec.ExitError
 	if !errors.As(err, &exit) || exit.ExitCode() != 2 {
 		t.Fatalf("go-todo: err = %v, want exit status 2", err)
 	}
-	if want := "usage: go-todo list\n"; stderr != want {
+	if want := "usage: go-todo list\n       go-todo add <title>\n"; stderr != want {
 		t.Errorf("stderr = %q, want %q", stderr, want)
 	}
 	if stdout != "" {
