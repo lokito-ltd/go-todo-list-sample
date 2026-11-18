@@ -2,6 +2,7 @@ package acceptance_test
 
 import (
 	"bytes"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -35,12 +36,12 @@ func listItems(t *testing.T) string {
 }
 
 func TestListingItems(t *testing.T) {
-	t.Run(`Each incomplete item is shown as "[ ] " followed by its title, one per line. [AC0001.1]`, func(t *testing.T) {
+	t.Run(`Each incomplete item is shown on its own line as its number, ". [ ] " and its title. [AC0001.1]`, func(t *testing.T) {
 		useFreshItemsFile(t)
-		want := "[ ] Buy milk\n" +
-			"[ ] Take cat to vet\n" +
-			"[ ] Print forms at library\n" +
-			"[ ] Wash the car\n"
+		want := "1. [ ] Buy milk\n" +
+			"2. [ ] Take cat to vet\n" +
+			"3. [ ] Print forms at library\n" +
+			"4. [ ] Wash the car\n"
 		if got := listItems(t); got != want {
 			t.Errorf("list = %q, want %q", got, want)
 		}
@@ -50,6 +51,18 @@ func TestListingItems(t *testing.T) {
 		useFreshItemsFile(t)
 		if got := listItems(t); strings.Contains(got, "Get a haircut") {
 			t.Errorf("list shows a done item: %q", got)
+		}
+	})
+
+	t.Run("Items are numbered from 1 in the order they are listed. [AC0001.3]", func(t *testing.T) {
+		path := useFreshItemsFile(t)
+		// A done item between two open ones gets no number and leaves no gap.
+		items := `[{"title":"First","done":false},{"title":"Finished","done":true},{"title":"Second","done":false}]`
+		if err := os.WriteFile(path, []byte(items), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		if got, want := listItems(t), "1. [ ] First\n2. [ ] Second\n"; got != want {
+			t.Errorf("list = %q, want %q", got, want)
 		}
 	})
 }

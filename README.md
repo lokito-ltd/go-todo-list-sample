@@ -1,6 +1,6 @@
 # go-todo
 
-A standalone command-line to-do app for Apple Silicon and Intel Macs. Run `go-todo list` to display every incomplete item, and `go-todo add <title>` to add one.
+A standalone command-line to-do app for Apple Silicon and Intel Macs. Run `go-todo list` to display every incomplete item, `go-todo add <title>` to add one, and `go-todo done <number>` to mark one complete.
 
 ## Where items are kept
 
@@ -18,25 +18,34 @@ make build
 Expected output:
 
 ```text
-[ ] Buy milk
-[ ] Take cat to vet
-[ ] Print forms at library
-[ ] Wash the car
+1. [ ] Buy milk
+2. [ ] Take cat to vet
+3. [ ] Print forms at library
+4. [ ] Wash the car
 ```
 
-Done items are not shown. To add an item:
+Done items are not shown, and the numbers count only the items shown. To add an item:
 
 ```sh
 ./bin/go-todo add Buy bread
 ```
 
-This prints `[ ] Buy bread`. Every word after `add` becomes part of the title, so quotes are optional. New items are incomplete and go to the end of the list.
+This prints `5. [ ] Buy bread`, the line `list` will show for it. Every word after `add` becomes part of the title, so quotes are optional. New items are incomplete and go to the end of the list.
 
-Running `go-todo` with no command, an unknown one, or `add` without a title prints the usage to stderr and exits with status 2:
+To mark an item complete, pass the number `list` shows for it:
+
+```sh
+./bin/go-todo done 2
+```
+
+This prints `[x] Take cat to vet`. The item disappears from `list`, and the items after it move up one number. A number with no item behind it prints `go-todo: no item 9 on the list` and exits with status 1.
+
+Running `go-todo` with no command, an unknown one, `add` without a title, or `done` without a single whole number of at least 1 prints the usage to stderr and exits with status 2:
 
 ```text
 usage: go-todo list
        go-todo add <title>
+       go-todo done <number>
 ```
 
 If the items file cannot be read or written, `go-todo` prints a `go-todo: ...` message to stderr and exits with status 1.

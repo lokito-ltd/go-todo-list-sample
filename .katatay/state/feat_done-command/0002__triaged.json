@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "seq": 2,
+  "prev": "138a0a210dec11099c6616153198115414729893c381355fea95c3064f249f68",
+  "ts": "2026-11-18T22:49:54.861Z",
+  "event": "triaged",
+  "payload": {
+    "treeFingerprint": "68da6e2bf185c7261d0fec74875f8556c2acaaa1d530ddfb625ace37bea9d4bc",
+    "implementationFingerprint": "5cd55b1d43c35d38ccad28c5b21b4b6ecaac89eec3e49437f9b87b087aa43581",
+    "level": "LOW",
+    "reasons": [],
+    "evidence": [
+      {
+        "role": "raw",
+        "title": "JUnit: reports/test/junit.xml",
+        "snapshot": ".katatay/local/feat_done-command/junit/20261118T224954.694Z_rU1uJy71NJf9De2HZ7umOeOO1zwjzQGEuz-NjmqxGR0.xml"
+      },
+      {
+        "role": "analysis",
+        "title": "Triage analysis",
+        "snapshot": ".katatay/local/feat_done-command/triage/20261118T224954.859Z_nIwbO4nEUkWSqhgyKUNJOdrUFIHMB5LrF2P6Q5KDM1I.json"
+      }
+    ],
+    "testCount": 51,
+    "predicted": {
+      "failed": 23,
+      "total": 23
+    },
+    "surprise": {
+      "failed": 0,
+      "total": 28
+    },
+    "overPredicted": {
+      "count": 0,
+      "total": 23
+    },
+    "notRun": {
+      "predicted": 0,
+      "unpredicted": 0
+    },
+    "implemented": true
+  }
+}

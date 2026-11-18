@@ -43,7 +43,7 @@ func TestStandaloneExecutableListsIncompleteItems(t *testing.T) {
 	if err != nil {
 		t.Fatalf("go-todo list: %v (stderr %q)", err, stderr)
 	}
-	want := "[ ] Buy milk\n[ ] Take cat to vet\n[ ] Print forms at library\n[ ] Wash the car\n"
+	want := "1. [ ] Buy milk\n2. [ ] Take cat to vet\n3. [ ] Print forms at library\n4. [ ] Wash the car\n"
 	if stdout != want {
 		t.Errorf("stdout = %q, want %q", stdout, want)
 	}
@@ -58,14 +58,33 @@ func TestStandaloneExecutableKeepsAddedItemsBetweenRuns(t *testing.T) {
 	if err != nil {
 		t.Fatalf("go-todo add: %v (stderr %q)", err, stderr)
 	}
-	if want := "[ ] Buy bread\n"; stdout != want {
+	if want := "5. [ ] Buy bread\n"; stdout != want {
 		t.Errorf("add stdout = %q, want %q", stdout, want)
 	}
 	stdout, stderr, err = runBinary(t, binary, itemsFile, "list")
 	if err != nil {
 		t.Fatalf("go-todo list: %v (stderr %q)", err, stderr)
 	}
-	want := "[ ] Buy milk\n[ ] Take cat to vet\n[ ] Print forms at library\n[ ] Wash the car\n[ ] Buy bread\n"
+	want := "1. [ ] Buy milk\n2. [ ] Take cat to vet\n3. [ ] Print forms at library\n4. [ ] Wash the car\n5. [ ] Buy bread\n"
+	if stdout != want {
+		t.Errorf("list stdout = %q, want %q", stdout, want)
+	}
+}
+
+func TestStandaloneExecutableKeepsCompletedItemsBetweenRuns(t *testing.T) {
+	binary, itemsFile := buildBinary(t), freshItemsFile(t)
+	stdout, stderr, err := runBinary(t, binary, itemsFile, "done", "2")
+	if err != nil {
+		t.Fatalf("go-todo done: %v (stderr %q)", err, stderr)
+	}
+	if want := "[x] Take cat to vet\n"; stdout != want {
+		t.Errorf("done stdout = %q, want %q", stdout, want)
+	}
+	stdout, stderr, err = runBinary(t, binary, itemsFile, "list")
+	if err != nil {
+		t.Fatalf("go-todo list: %v (stderr %q)", err, stderr)
+	}
+	want := "1. [ ] Buy milk\n2. [ ] Print forms at library\n3. [ ] Wash the car\n"
 	if stdout != want {
 		t.Errorf("list stdout = %q, want %q", stdout, want)
 	}
@@ -77,7 +96,7 @@ func TestStandaloneExecutableWithoutCommandShowsUsage(t *testing.T) {
 	if !errors.As(err, &exit) || exit.ExitCode() != 2 {
 		t.Fatalf("go-todo: err = %v, want exit status 2", err)
 	}
-	if want := "usage: go-todo list\n       go-todo add <title>\n"; stderr != want {
+	if want := "usage: go-todo list\n       go-todo add <title>\n       go-todo done <number>\n"; stderr != want {
 		t.Errorf("stderr = %q, want %q", stderr, want)
 	}
 	if stdout != "" {

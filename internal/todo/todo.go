@@ -45,6 +45,24 @@ func Incomplete(items []Item) []Item {
 	return open
 }
 
+// Complete marks the nth incomplete item (counting from 1, in list order) as
+// done and returns it. It reports false, and changes nothing, when there is no
+// nth incomplete item.
+func Complete(items []Item, n int) (Item, bool) {
+	count := 0
+	for i := range items {
+		if items[i].Done {
+			continue
+		}
+		count++
+		if count == n {
+			items[i].Done = true
+			return items[i], true
+		}
+	}
+	return Item{}, false
+}
+
 // Path returns the file the items are kept in: the file named by GO_TODO_FILE
 // when it is set and not empty, otherwise ~/.go-todo/items.json.
 func Path() (string, error) {
