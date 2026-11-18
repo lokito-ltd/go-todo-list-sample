@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "seq": 5,
+  "prev": "d031109295bea84349e5b7bcda126622ad19de46060df625dd15b326738c8e25",
+  "ts": "2026-11-18T22:06:48.958Z",
+  "event": "plan_approved",
+  "payload": {
+    "proposal": "c16916e7684b3a5aa6a388bda3824ec549912a9b5b9c2fb54884629ee1287914",
+    "testOnly": false,
+    "requirementChanges": [
+      {
+        "id": "AC0002",
+        "status": "active",
+        "statement": "Adding an item puts it on the to-do list as incomplete.",
+        "scenarios": [
+          "[AC0002.1] An added item is shown as incomplete at the end of the list.",
+          "[AC0002.2] The words given after the command form the title, separated by single spaces.",
+          "[AC0002.3] Adding with no title is refused and leaves the list unchanged."
+        ]
+      }
+    ],
+    "planSnapshot": ".katatay/local/feat_add-command/plans/20261118T220648.954Z_wWkW52hLOlqmo4i9o4JOxUmRKptbnC-1SIRinuEoeRQ.md",
+    "baseline": "fc33e32b3ad3728005cbc4c8d6638794ebf0d288"
+  }
+}

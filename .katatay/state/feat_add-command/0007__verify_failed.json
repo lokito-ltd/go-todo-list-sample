@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "seq": 7,
+  "prev": "e1f2d20ff6e053e6d40b5bb5bcce5eb4b9a5970aff7db1e11ca308a3d74bfa14",
+  "ts": "2026-11-18T22:07:55.254Z",
+  "event": "verify_failed",
+  "payload": {
+    "treeFingerprint": "0cf44f502808aee94acbe1e603d90b2424ab9713767183a1fc3154e007da3c6c",
+    "baseline": "fc33e32b3ad3728005cbc4c8d6638794ebf0d288",
+    "rulebookFingerprint": "ffa3b9c16e8b1dce4e56dfd7e378c7d1368fa8bc96f54501cd008a10db74c04e",
+    "tail": "  NoCoverage CONDITIONALS_NEGATION at internal/cli/run.go:27:17\n  NoCoverage CONDITIONALS_NEGATION at internal/cli/run.go:25:17\n  NoCoverage CONDITIONALS_BOUNDARY at internal/cli/run.go:27:17\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:58:54\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:62:41\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:28:85\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:16:9\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:53:9\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:43:42\n  Killed ARITHMETIC_BASE at internal/todo/todo.go:87:14\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:78:11\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:55:9\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:84:56\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:51:38\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:68:9\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:88:62\n  Killed: 13, Survived: 0, No coverage: 5, Timeout: 0, Not viable: 0\nmutation — mutation check broke\n\nverify: failed at mutation.",
+    "results": [
+      {
+        "name": "req:lint",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "req:guard",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "state:verify",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "compile",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "tests",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "JUnit: reports/test/junit.xml",
+            "snapshot": ".katatay/local/feat_add-command/junit/20261118T220749.655Z_JgZcNIgkNRS9qWCBwxWp6z5B8LiDTWFM-gJ4WiyNpvU.xml"
+          },
+          {
+            "role": "analysis",
+            "title": "Parsed test run and execution metadata",
+            "snapshot": ".katatay/local/feat_add-command/junit/analysis/20261118T220749.681Z_6D6xaOg8bYdTbnronUaMZBdRgabYUsS-EA4bFIxRc68.json"
+          }
+        ],
+        "summary": {
+          "total": 51,
+          "passed": 51,
+          "failed": 0,
+          "skipped": 0,
+          "inverted": 0,
+          "omittedFiles": 0
+        }
+      },
+      {
+        "name": "req:trace",
+        "status": "ok",
+        "reason": "Check passed.",
+        "evidence": [],
+        "summary": {
+          "outcome": "clean"
+        }
+      },
+      {
+        "name": "coverage",
+        "status": "ok",
+        "reason": "every folder is at or above its minimum",
+        "evidence": [
+          {
+            "role": "raw",
+            "title": "Raw LCOV coverage",
+            "snapshot": ".katatay/local/feat_add-command/coverage/20261118T220750.263Z_SkOwVwZiAYWHmlXZULbg7aYTU-0xy1mpGERe4WaHc3I.lcov"
+          },
+          {
+            "role": "analysis",
+            "title": "Coverage thresholds and changed lines",
+            "snapshot": ".katatay/local/feat_add-command/coverage/20261118T220750.264Z_r3_yJ6v9ZIEeDRtQ0f44DYGTwk_gNJthRoqITHSn1yY.json"
+          }
+        ],
+        "summary": {
+          "folders": [
+            {
+              "folder": "internal/",
+              "lines": {
+                "percent": 100,
+                "target": 95
+              },
+              "branches": {
+                "percent": 100,
+                "target": 0
+              }
+            },
+            {
+              "folder": "cmd/",
+              "lines": {
+                "percent": 0,
+                "target": 0
+              },
+              "branches": {
+                "percent": 100,
+                "target": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "mutation",
+        "status": "failed",
+        "reason": "mutation check broke",
+        "evidence": [],
+        "summary": {
+          "diagnostics": "Mutation testing on the lines this change added or changed:\n  Mutation report failed: reports/mutation/mutation.json\n  report contradicts the command's survived outcome\n\n  NoCoverage CONDITIONALS_NEGATION at internal/cli/run.go:25:33\n  NoCoverage CONDITIONALS_NEGATION at internal/cli/run.go:27:32\n  NoCoverage CONDITIONALS_NEGATION at internal/cli/run.go:27:17\n  NoCoverage CONDITIONALS_NEGATION at internal/cli/run.go:25:17\n  NoCoverage CONDITIONALS_BOUNDARY at internal/cli/run.go:27:17\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:58:54\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:62:41\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:28:85\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:16:9\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:53:9\n  Killed CONDITIONALS_NEGATION at internal/cli/run.go:43:42\n  Killed ARITHMETIC_BASE at internal/todo/todo.go:87:14\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:78:11\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:55:9\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:84:56\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:51:38\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:68:9\n  Killed CONDITIONALS_NEGATION at internal/todo/todo.go:88:62\n  Killed: 13, Survived: 0, No coverage: 5, Timeout: 0, Not viable: 0"
+        }
+      },
+      {
+        "name": "gofmt",
+        "status": "skipped",
+        "reason": "An earlier step stopped verification.",
+        "evidence": [],
+        "summary": {}
+      },
+      {
+        "name": "vet",
+        "status": "skipped",
+        "reason": "An earlier step stopped verification.",
+        "evidence": [],
+        "summary": {}
+      }
+    ]
+  }
+}

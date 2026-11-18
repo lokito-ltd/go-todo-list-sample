@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "seq": 13,
+  "prev": "fb60c83e1a547f07cc367c22bafa6e322655e07df09f91d4fcbb87b1606f7851",
+  "ts": "2026-11-18T22:39:54.868Z",
+  "event": "declared",
+  "payload": {
+    "treeFingerprint": "252532e6247ce1f5d40f4f7bbc48082e32de676aeaf7a742dc9f409f3b8f056b",
+    "note": null,
+    "gaps": {
+      "uncoveredLines": 0,
+      "uncaughtMutants": 0
+    },
+    "summary": [
+      "prediction: exact · protected files: 1 · risk: LOW",
+      "AC scenarios: 3 added, 0 reworded, 0 retired",
+      "tests: 19 added, 27 modified, 0 removed",
+      "change coverage 100% (63 of 63 lines) · mutants: 18 caught, 0 survived (by the tool's account)",
+      "follow-ups +1 −0 · code +105 −10 lines",
+      "2 setup warnings"
+    ],
+    "changeReportSnapshot": ".katatay/local/feat_add-command/change-report/20261118T223954.863Z_XgiOnkzDtAdIXH_UZekFvtbUtv13wEyWthJlFpKCtm4.json"
+  }
+}
